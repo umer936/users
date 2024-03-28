@@ -54,9 +54,9 @@ class PasswordLockoutIdentifier extends PasswordIdentifier
     }
 
     /**
-     * @return \CakeDC\Users\Identifier\PasswordLockout\LockoutHandler
+     * @return \CakeDC\Users\Identifier\PasswordLockout\LockoutHandlerInterface
      */
-    protected function getLockoutHandler(): LockoutHandler
+    protected function getLockoutHandler(): LockoutHandlerInterface
     {
         if ($this->lockoutHandler !== null) {
             return $this->lockoutHandler;
