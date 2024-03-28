@@ -34,6 +34,8 @@ class LockoutHandler implements LockoutHandlerInterface
         'lockoutTimeInSeconds' => 5 * 60,
         'numberOfAttemptsFail' => 6,
         'failedPasswordAttemptsModel' => 'CakeDC/Users.FailedPasswordAttempts',
+        'userLockoutField' => 'lockout_time',
+        'usersModel' => 'Users',
     ];
 
     /**
@@ -47,23 +49,30 @@ class LockoutHandler implements LockoutHandlerInterface
     }
 
     /**
-     * @param string|int $id User's id
+     * @param \ArrayAccess|array $identity
      * @return bool
      */
-    public function isUnlocked(string|int $id): bool
+    public function isUnlocked(\ArrayAccess|array $identity): bool
     {
+        $lockoutField = $this->getConfig('userLockoutField');
+        $userLockoutTime = $identity[$lockoutField] ?? null;
+        if ($userLockoutTime) {
+            if (!$this->checkLockoutTime($userLockoutTime)) {//Still locked?
+                return false;
+            }
+        }
         $timeWindow = $this->getTimeWindow();
-        $attemptsCount = $this->getAttemptsCount($id, $timeWindow);
+        $attemptsCount = $this->getAttemptsCount($identity['id'], $timeWindow);
         $numberOfAttemptsFail = $this->getNumberOfAttemptsFail();
         if ($numberOfAttemptsFail > $attemptsCount) {
             return true;
         }
+        $lastAttempt = $this->getLastAttempt($identity['id'], $timeWindow);
+        $this->getTableLocator()
+            ->get($this->getConfig('usersModel'))
+            ->updateAll([$lockoutField => $lastAttempt->created], ['id' => $identity['id']]);
 
-        $lockTime = $this->getLockoutTime();
-        $attempt = $this->getLastAttempt($id, $timeWindow);
-        $lockTime = $attempt->created->addSeconds($lockTime);
-
-        return $lockTime->isPast();
+        return $this->checkLockoutTime($lastAttempt->created);
     }
 
     /**
@@ -97,9 +106,8 @@ class LockoutHandler implements LockoutHandlerInterface
         return $this->getAttemptsQuery($id, $timeWindow)->count();
     }
 
-
     /**
-     * @param int|string $id
+     * @param string|int $id
      * @param \Cake\I18n\DateTime $timeWindow
      * @return \CakeDC\Users\Model\Entity\FailedPasswordAttempt
      */
@@ -109,11 +117,12 @@ class LockoutHandler implements LockoutHandlerInterface
          * @var \CakeDC\Users\Model\Entity\FailedPasswordAttempt $attempt
          */
         $attempt = $this->getAttemptsQuery($id, $timeWindow)->first();
+
         return $attempt;
     }
 
     /**
-     * @param int|string $id
+     * @param string|int $id
      * @param \Cake\I18n\DateTime $timeWindow
      * @return \Cake\ORM\Query\SelectQuery
      */
@@ -165,5 +174,14 @@ class LockoutHandler implements LockoutHandlerInterface
         }
 
         throw new \UnexpectedValueException(__d('cake_d_c/users', 'Config "lockoutTimeInSeconds" must be integer greater than 60'));
+    }
+
+    /**
+     * @param \Cake\I18n\DateTime $dateTime
+     * @return bool
+     */
+    protected function checkLockoutTime(DateTime $dateTime): bool
+    {
+        return $dateTime->addSeconds($this->getLockoutTime())->isPast();
     }
 }

@@ -6,10 +6,10 @@ namespace CakeDC\Users\Identifier\PasswordLockout;
 interface LockoutHandlerInterface
 {
     /**
-     * @param string|int $id User's id
+     * @param \ArrayAccess|array $identity
      * @return bool
      */
-    public function isUnlocked(string|int $id): bool;
+    public function isUnlocked(\ArrayAccess|array $identity): bool;
 
     /**
      * @param string|int $id User's id

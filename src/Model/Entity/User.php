@@ -32,6 +32,7 @@ use Cake\Utility\Security;
  * @property array|string $additional_data
  * @property \CakeDC\Users\Model\Entity\SocialAccount[] $social_accounts
  * @property string $password
+ * @property \Cake\I18n\DateTime $lockout_time
  */
 class User extends Entity
 {

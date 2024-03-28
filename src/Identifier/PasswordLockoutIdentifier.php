@@ -50,7 +50,7 @@ class PasswordLockoutIdentifier extends PasswordIdentifier
             return false;
         }
 
-        return $handler->isUnlocked($identity['id']);
+        return $handler->isUnlocked($identity);
     }
 
     /**
