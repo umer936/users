@@ -118,7 +118,7 @@ class LockoutHandlerTest extends TestCase
         $handler = new LockoutHandler();
         $user = [
             'username' => 'user-2',
-            'email' => 'user-2@test.com'
+            'email' => 'user-2@test.com',
         ];
         $actual = $handler->isUnlocked($user);
         $this->assertFalse($actual);
