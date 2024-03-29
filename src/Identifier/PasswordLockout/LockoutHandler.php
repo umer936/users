@@ -30,8 +30,8 @@ class LockoutHandler implements LockoutHandlerInterface
      * @var array{timeWindowInSeconds: int, lockoutTimeInSeconds: int, numberOfAttemptsFail:int}
      */
     protected array $_defaultConfig = [
-        'timeWindowInSeconds' => 5 * 60,
-        'lockoutTimeInSeconds' => 5 * 60,
+        'timeWindowInSeconds' => 15 * 60,
+        'lockoutTimeInSeconds' => 30 * 60,
         'numberOfAttemptsFail' => 6,
         'failedPasswordAttemptsModel' => 'CakeDC/Users.FailedPasswordAttempts',
         'userLockoutField' => 'lockout_time',

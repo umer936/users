@@ -135,11 +135,11 @@ Additionally, you can set number of attempts until lock, lockout time, time wind
         'identifiers' => ['PasswordLockout'],
     ],
     'Auth.Identifiers.Password.lockoutHandler' => [
-        'timeWindowInSeconds' => 30 * 60,//30 minutes
-        'lockoutTimeInSeconds' => 100 * 60,//100 minutes
-        'numberOfAttemptsFail' => 4,
+        'timeWindowInSeconds' => 30 * 60,//30 minutes (default is 15 minutes)
+        'lockoutTimeInSeconds' => 100 * 60,//100 minutes (default is 30 minutes)
+        'numberOfAttemptsFail' => 4, (default is 6 attempts)
         'failedPasswordAttemptsModel' => 'CakeDC/Users.FailedPasswordAttempts',
-        'userLockoutField' => 'lockout_time',
+        'userLockoutField' => 'lockout_time',//Field in user entity used to lock the user.
         'usersModel' => 'Users',
     ],
 ```
