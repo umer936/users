@@ -224,6 +224,7 @@ I want to
     </details>
   - [use user's email to login](./Documentation/Configuration.md#using-the-users-email-to-login)
   - [override the password hasher](./Documentation/Configuration.md#password-hasher-customization)
+  - [lock a users account after a number of failed password attempts](./Documentation/Authentication.md#account-lockout-policy)
 
 - add custom logic before
   - [user logout](./Documentation/Events.md#i-want-to-add-custom-logic-before-user-logout)

@@ -79,9 +79,11 @@ class LockoutHandlerTest extends TestCase
         $handler = new LockoutHandler([
             'numberOfAttemptsFail' => 7,
         ]);
+        $expiredTimeout = $handler->getConfig('lockoutTimeInSeconds') + 10;
+        $this->assertGreaterThan(10, $expiredTimeout);
         $UsersTable = TableRegistry::getTableLocator()->get('Users');
         $userId = '00000000-0000-0000-0000-000000000004';
-        $UsersTable->updateAll(['lockout_time' => new DateTime('-6 minutes')], ['id' => $userId]);
+        $UsersTable->updateAll(['lockout_time' => new DateTime('-' . $expiredTimeout . 'minutes')], ['id' => $userId]);
         $userBefore = $UsersTable->get($userId);
         $this->assertInstanceOf(DateTime::class, $userBefore->lockout_time);
 
