@@ -71,6 +71,7 @@ return [
             'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
             'additional_data' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
             'last_login' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+            'lockout_time' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         ],
         'constraints' => [
             'primary' => [
@@ -90,6 +91,22 @@ return [
         ],
         'constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+        ],
+    ],
+    [
+        'table' => 'failed_password_attempts',
+        'columns' => [
+            'id' => ['type' => 'uuid', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+            'user_id' => ['type' => 'uuid', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+            'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        ],
+        'constraints' => [
+            'primary' => [
+                'type' => 'primary',
+                'columns' => [
+                    'id',
+                ],
+            ],
         ],
     ],
 ];
