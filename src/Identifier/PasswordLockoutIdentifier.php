@@ -42,6 +42,9 @@ class PasswordLockoutIdentifier extends PasswordIdentifier
      */
     protected function _checkPassword(ArrayAccess|array|null $identity, ?string $password): bool
     {
+        if (!isset($identity['id'])) {
+            return false;
+        }
         $check = parent::_checkPassword($identity, $password);
         $handler = $this->getLockoutHandler();
         if (!$check) {

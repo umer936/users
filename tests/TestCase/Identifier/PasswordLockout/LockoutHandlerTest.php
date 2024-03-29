@@ -109,4 +109,28 @@ class LockoutHandlerTest extends TestCase
         $this->assertInstanceOf(DateTime::class, $userAfter->lockout_time);
         $this->assertEquals($userBefore->lockout_time, $userAfter->lockout_time);
     }
+
+    /**
+     * @return void
+     */
+    public function testIsUnlockedWithoutIdButNotEmpty()
+    {
+        $handler = new LockoutHandler();
+        $user = [
+            'username' => 'user-2',
+            'email' => 'user-2@test.com'
+        ];
+        $actual = $handler->isUnlocked($user);
+        $this->assertFalse($actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function testIsUnlockedWithoutIdAndEmpty()
+    {
+        $handler = new LockoutHandler();
+        $actual = $handler->isUnlocked([]);
+        $this->assertFalse($actual);
+    }
 }

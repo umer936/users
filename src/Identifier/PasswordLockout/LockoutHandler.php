@@ -54,6 +54,9 @@ class LockoutHandler implements LockoutHandlerInterface
      */
     public function isUnlocked(\ArrayAccess|array $identity): bool
     {
+        if (!isset($identity['id'])) {
+            return false;
+        }
         $lockoutField = $this->getConfig('userLockoutField');
         $userLockoutTime = $identity[$lockoutField] ?? null;
         if ($userLockoutTime) {
