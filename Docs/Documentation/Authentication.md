@@ -117,6 +117,34 @@ The default list for ``Auth.Identifiers`` is:
 
 These identifiers are loaded by the ``\CakeDC\Users\Loader\AuthenticationServiceLoader`` class in the ``loadIdentifiers`` method. See [Authentication Service Loader](#authentication-service-loader) on how to adjust it to your needs.
 
+Account lockout policy
+----------------------
+Lock a users account after a number of failed password attempts in a certain time window.
+
+To enable this updated your config/users.php file with:
+```php
+    'Auth.Identifiers.Password.className' => 'CakeDC/Users.PasswordLockout',
+    'Auth.PasswordRehash' => [
+        'identifiers' => ['PasswordLockout'],
+    ],
+```
+Additionally, you can set number of attempts until lock, lockout time, time window and more, eg:
+```
+    'Auth.Identifiers.Password.className' => 'CakeDC/Users.PasswordLockout',
+    'Auth.PasswordRehash' => [
+        'identifiers' => ['PasswordLockout'],
+    ],
+    'Auth.Identifiers.Password.lockoutHandler' => [
+        'timeWindowInSeconds' => 30 * 60,//30 minutes
+        'lockoutTimeInSeconds' => 100 * 60,//100 minutes
+        'numberOfAttemptsFail' => 4,
+        'failedPasswordAttemptsModel' => 'CakeDC/Users.FailedPasswordAttempts',
+        'userLockoutField' => 'lockout_time',
+        'usersModel' => 'Users',
+    ],
+```
+
+
 Handling Login Result
 ---------------------
 
