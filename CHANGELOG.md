@@ -2,6 +2,8 @@ Changelog
 =========
 Releases for CakePHP 5
 -------------
+* 14.1
+  * New feature "Account lockout policy"
 * 14.0
   * Set dependecy for CakeDC/Auth to 10.0. Perform 2FA refactoring,
 
@@ -23,7 +25,7 @@ Releases for CakePHP 4.5
   * Update Permissions.md
   * fix: config for updateLastLogin
   * fix: remove deprecated code on profile logic
-  * feat:flash message on login, on cake4 
+  * feat:flash message on login, on cake4
 
 * 11.3.4
   * Fix `Detected invalid UTF-8 for field...` issue when storing session data from `Webauthn` in a mongo database.
