@@ -71,6 +71,8 @@ $config = [
             'key' => null,
             // reCaptcha secret
             'secret' => null,
+            // reCaptcha version. keep 2 for backward compatibility
+            'version' => 2,
             // use reCaptcha in registration
             'registration' => false,
             // use reCaptcha in login, valid values are false, true

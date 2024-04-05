@@ -54,6 +54,7 @@ and add this to your config/users.php file:
 ```php
 'Users.reCaptcha.key' => 'YOUR RECAPTCHA KEY',
 'Users.reCaptcha.secret' => 'YOUR RECAPTCHA SECRET',
+'Users.reCaptcha.version' => '2', //defaults to version 2 (backward compatibility) but you can use version 3 which is recommended
 'Users.reCaptcha.registration' => true, //enable on registration
 'Users.reCaptcha.login' => true, //enable on login
 ```

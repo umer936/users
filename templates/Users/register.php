@@ -35,6 +35,6 @@ use Cake\Core\Configure;
         }
         ?>
     </fieldset>
-    <?= $this->Form->button(__d('cake_d_c/users', 'Submit')) ?>
+    <?= $this->User->button(__d('cake_d_c/users', 'Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
