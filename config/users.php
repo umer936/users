@@ -78,6 +78,10 @@ $config = [
             // use reCaptcha in login, valid values are false, true
             'login' => false,
         ],
+        'passwordMeter' => [
+            'enabled' => true,
+            'requiredScore' => 3,
+        ],
         'Tos' => [
             // determines if the user should include tos accepted
             'required' => true,

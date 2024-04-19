@@ -18,7 +18,6 @@ use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use Cake\View\Helper;
 use CakeDC\Users\Utility\UsersUrl;
-use Exception;
 use InvalidArgumentException;
 
 /**
@@ -153,6 +152,29 @@ class UserHelper extends Helper
     }
 
     /**
+     * @return void
+     */
+    public function addPasswordMeterStript(): void
+    {
+        $this->Html->script('CakeDC/Users.pswmeter', [
+            'block' => 'script',
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function addPasswordMeter(): string
+    {
+        $this->addPasswordMeterStript();
+        $requiredScore = Configure::read('Users.passwordMeter.requiredScore', 3);
+        $script = $this->Html->scriptBlock("const requiredScore = $requiredScore", ['defer' => true]);
+
+        return $this->Html->tag('div', '', ['id' => 'pswmeter']) .
+            $this->Html->tag('div', '', ['id' => 'pswmeter-message']) . $script;
+    }
+
+    /**
      * Add reCaptcha to the form
      *
      * @return mixed
@@ -174,7 +196,7 @@ class UserHelper extends Helper
         if (method_exists($this, $method)) {
             try {
                 $this->Form->unlockField('g-recaptcha-response');
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
             }
 
             return $this->{$method}();
