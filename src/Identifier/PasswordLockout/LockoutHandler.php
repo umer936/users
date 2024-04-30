@@ -74,9 +74,9 @@ class LockoutHandler implements LockoutHandlerInterface
         $lastAttempt = $this->getLastAttempt($identity['id'], $timeWindow);
         $this->getTableLocator()
             ->get($this->getConfig('usersModel'))
-            ->updateAll([$lockoutField => $lastAttempt->created], ['id' => $identity['id']]);
+            ->updateAll([$lockoutField => $lastAttempt->get('created')], ['id' => $identity['id']]);
 
-        return $this->checkLockoutTime($lastAttempt->created);
+        return $this->checkLockoutTime($lastAttempt->get('created'));
     }
 
     /**
