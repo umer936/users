@@ -2,6 +2,9 @@ Changelog
 =========
 Releases for CakePHP 5
 -------------
+* 14.2.0
+  * Add password meter to display password quality
+  * Add integration with google reCaptcha v3, keep default using v2
 * 14.1.1
   * Add config option to customize the user foreign key field in LockoutHandler
 * 14.1
