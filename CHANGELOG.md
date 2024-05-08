@@ -2,6 +2,8 @@ Changelog
 =========
 Releases for CakePHP 5
 -------------
+* 14.1.1
+  * Add config option to customize the user foreign key field in LockoutHandler
 * 14.1
   * New feature "Account lockout policy"
 * 14.0
