@@ -83,7 +83,7 @@ class SimpleCrudTraitIntegrationTest extends TestCase
         $this->assertResponseContains('<form method="post" accept-charset="utf-8" action="/users/change-password/00000000-0000-0000-0000-000000000005">');
         $this->assertResponseContains('<input type="password" name="password" required="required"');
         $this->assertResponseContains('<input type="password" name="password_confirm" required="required"');
-        $this->assertResponseContains('<button type="submit">Submit</button>');
+        $this->assertResponseContains('<button id="btn-submit" type="submit">Submit</button>');
 
         $this->enableSecurityToken();
         $this->post('/users/change-password/00000000-0000-0000-0000-000000000005', [
