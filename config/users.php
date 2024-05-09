@@ -79,8 +79,16 @@ $config = [
             'login' => false,
         ],
         'passwordMeter' => [
+            //enable or disable password meter
             'enabled' => true,
+            //int value from 1 to 4 (25%,50%,75%,100%). Defaults to 3
             'requiredScore' => 3,
+            //Messages for each password level (0%,25%,50%,75%,100%)
+            'messagesList' => ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!'],
+            //Password min length
+            'pswMinLength' => 8,
+            //shows message for password score
+            'showMessage' => true,
         ],
         'Tos' => [
             // determines if the user should include tos accepted

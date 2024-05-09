@@ -65,6 +65,25 @@ Note you'll need to add google/recaptcha to your composer.json file.
 $ composer require google/recaptcha:@stable
 ```
 
+Configuration for Password Meter
+---------------------
+Password meter is enabled by default but you can disable it or change config options adding this to your config/users.php file:
+
+```php
+'Users.passwordMeter.enabled' => true, //enable or disable password meter. Defaults to true
+'Users.passwordMeter.requiredScore' => 3, //int value from 1 to 4 (25%,50%,75%,100%). Defaults to 3
+'Users.passwordMeter.messagesList' => ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!'], //Messages for each password level (0%,25%,50%,75%,100%)
+'Users.passwordMeter.pswMinLength' => 8, //Password min length, defaults to 8
+'Users.passwordMeter.showMessage' => true, //shows password message
+```
+
+Note the score is calculated based on the following rules:
+
+* If you include a lower single character and an upper one ([a-zA-Z]) it increases the score by 1
+* If you include an special single character it increases the score by 1
+* If you include a digit it increases the score by 1
+* If you reaches the `pswMinLength` it increases the score by 1
+
 Configuration options
 ---------------------
 

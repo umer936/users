@@ -154,7 +154,7 @@ class UserHelper extends Helper
     /**
      * @return void
      */
-    public function addPasswordMeterStript(): void
+    public function addPasswordMeterScript(): void
     {
         $this->Html->script('CakeDC/Users.pswmeter', [
             'block' => 'script',
@@ -166,9 +166,17 @@ class UserHelper extends Helper
      */
     public function addPasswordMeter(): string
     {
-        $this->addPasswordMeterStript();
+        $this->addPasswordMeterScript();
         $requiredScore = Configure::read('Users.passwordMeter.requiredScore', 3);
-        $script = $this->Html->scriptBlock("const requiredScore = $requiredScore", ['defer' => true]);
+        $messagesList = json_encode(Configure::read('Users.passwordMeter.messagesList', ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!']));
+        $pswMinLength = Configure::read('Users.passwordMeter.pswMinLength', 8);
+        $showMessage = (string)Configure::read('Users.passwordMeter.showMessage', true);
+        $script = $this->Html->scriptBlock("
+            const requiredScore = $requiredScore;
+            const messagesList = $messagesList;
+            const pswMinLength = $pswMinLength;
+            const showMessage = $showMessage;
+        ", ['defer' => true]);
 
         return $this->Html->tag('div', '', ['id' => 'pswmeter']) .
             $this->Html->tag('div', '', ['id' => 'pswmeter-message']) . $script;

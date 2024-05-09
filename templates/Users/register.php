@@ -20,7 +20,7 @@ use Cake\Core\Configure;
         echo $this->Form->control('username', ['label' => __d('cake_d_c/users', 'Username')]);
         echo $this->Form->control('email', ['label' => __d('cake_d_c/users', 'Email')]);
         echo $this->Form->control('password', ['label' => __d('cake_d_c/users', 'Password'), 'id' => 'new-password']);
-        if (Configure::read('Users.passwordMeter')) {
+        if (Configure::read('Users.passwordMeter.enabled')) {
             echo $this->User->addPasswordMeter();
         }
         echo $this->Form->control('password_confirm', [
