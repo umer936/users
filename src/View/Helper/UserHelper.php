@@ -168,9 +168,14 @@ class UserHelper extends Helper
     {
         $this->addPasswordMeterScript();
         $requiredScore = Configure::read('Users.passwordMeter.requiredScore', 3);
-        $messagesList = json_encode(Configure::read('Users.passwordMeter.messagesList', ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!']));
-        $pswMinLength = Configure::read('Users.passwordMeter.pswMinLength', 8);
-        $showMessage = (string)Configure::read('Users.passwordMeter.showMessage', true);
+        $messagesList = json_encode(
+            Configure::read(
+                'Users.passwordMeter.messagesList',
+                ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!']
+            )
+        );
+        $pswMinLength = Configure::read('Users.passwordMinLength', 8);
+        $showMessage = Configure::read('Users.passwordMeter.showMessage', true) ? 'true' : 'false';
         $script = $this->Html->scriptBlock("
             const requiredScore = $requiredScore;
             const messagesList = $messagesList;

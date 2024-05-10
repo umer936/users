@@ -230,7 +230,10 @@ class SocialBehavior extends BaseTokenBehavior
             if (
                 $useEmail &&
                 empty($dataValidated) ||
-                ($this->validateSocialAccount && !Configure::read('OAuth.providers.' . $data['provider'] . '.skipSocialAccountValidation'))
+                (
+                    $this->validateSocialAccount &&
+                    !Configure::read('OAuth.providers.' . $data['provider'] . '.skipSocialAccountValidation')
+                )
             ) {
                 $accountData['active'] = 0;
             }
