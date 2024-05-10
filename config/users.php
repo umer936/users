@@ -82,9 +82,15 @@ $config = [
             //enable or disable password meter
             'enabled' => true,
             //int value from 1 to 4 (25%,50%,75%,100%). Defaults to 3
-            'requiredScore' => 3,
+            'requiredScore' => 1,
             //Messages for each password level (0%,25%,50%,75%,100%)
-            'messagesList' => ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!'],
+            'messagesList' => [
+                __d('cake_d_c/users', 'Empty password'),
+                __d('cake_d_c/users', 'Too simple'),
+                __d('cake_d_c/users','Simple'),
+                __d('cake_d_c/users', 'That\'s OK'),
+                __d('cake_d_c/users', 'Great password!')
+            ],
             //Password min length
             'pswMinLength' => 8,
             //shows message for password score

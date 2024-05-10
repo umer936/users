@@ -71,9 +71,9 @@ Password meter is enabled by default but you can disable it or change config opt
 
 ```php
 'Users.passwordMeter.enabled' => true, //enable or disable password meter. Defaults to true
-'Users.passwordMeter.requiredScore' => 3, //int value from 1 to 4 (25%,50%,75%,100%). Defaults to 3
+'Users.passwordMeter.requiredScore' => 1, //int value from 1 to 4 (25%,50%,75%,100%). Defaults to 1
 'Users.passwordMeter.messagesList' => ['Empty password', 'Too simple', 'Simple', 'That\'s OK', 'Great password!'], //Messages for each password level (0%,25%,50%,75%,100%)
-'Users.passwordMeter.pswMinLength' => 8, //Password min length, defaults to 8
+'Users.passwordMeter.pswMinLength' => 8, //Password min length, defaults to 8. It won't affect users validation in backend
 'Users.passwordMeter.showMessage' => true, //shows password message
 ```
 

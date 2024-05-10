@@ -152,7 +152,12 @@ class LockoutHandler implements LockoutHandlerInterface
             return (new DateTime())->subSeconds($timeWindow);
         }
 
-        throw new \UnexpectedValueException(__d('cake_d_c/users', 'Config "timeWindowInSeconds" must be integer greater than 60'));
+        throw new \UnexpectedValueException(
+            __d(
+                'cake_d_c/users',
+                'Config "timeWindowInSeconds" must be integer greater than 60'
+            )
+        );
     }
 
     /**
@@ -164,7 +169,12 @@ class LockoutHandler implements LockoutHandlerInterface
         if (is_int($number) && $number >= 1) {
             return $number;
         }
-        throw new \UnexpectedValueException(__d('cake_d_c/users', 'Config "numberOfAttemptsFail" must be integer greater or equal 0'));
+        throw new \UnexpectedValueException(
+            __d(
+                'cake_d_c/users',
+                'Config "numberOfAttemptsFail" must be integer greater or equal 0'
+            )
+        );
     }
 
     /**
@@ -177,7 +187,12 @@ class LockoutHandler implements LockoutHandlerInterface
             return $lockTime;
         }
 
-        throw new \UnexpectedValueException(__d('cake_d_c/users', 'Config "lockoutTimeInSeconds" must be integer greater than 60'));
+        throw new \UnexpectedValueException(
+            __d(
+                'cake_d_c/users',
+                'Config "lockoutTimeInSeconds" must be integer greater than 60'
+            )
+        );
     }
 
     /**

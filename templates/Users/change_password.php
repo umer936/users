@@ -16,7 +16,7 @@
             'id' => 'new-password',
             'label' => __d('cake_d_c/users', 'New password')]);
         ?>
-        <?php if (\Cake\Core\Configure::read('Users.passwordMeter')) : ?>
+        <?php if (\Cake\Core\Configure::read('Users.passwordMeter.enabled')) : ?>
             <?= $this->User->addPasswordMeter() ?>
         <?php endif; ?>
         <?= $this->Form->control('password_confirm', [
