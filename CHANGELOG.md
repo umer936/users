@@ -2,6 +2,9 @@ Changelog
 =========
 Releases for CakePHP 5
 -------------
+* 14.2.1
+  * Improve documentation about password meter.
+  * Fix minor bugs 
 * 14.2.0
   * Add password meter to display password quality
   * Add integration with google reCaptcha v3, keep default using v2
