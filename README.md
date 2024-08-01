@@ -76,6 +76,11 @@ Contributing
 
 This repository follows the [CakeDC Plugin Standard](https://www.cakedc.com/plugin-standard). If you'd like to contribute new features, enhancements or bug fixes to the plugin, please read our [Contribution Guidelines](https://www.cakedc.com/contribution-guidelines) for detailed instructions.
 
+Security
+------------
+
+If you've found a security issue in CakeDC Users plugin, please use the procedure described in [SECURITY.md](.github/SECURITY.md)
+
 License
 -------
 
