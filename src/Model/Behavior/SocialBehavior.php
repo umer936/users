@@ -278,8 +278,13 @@ class SocialBehavior extends BaseTokenBehavior
      */
     public function findExistingForSocialLogin(\Cake\ORM\Query $query, array $options)
     {
+        $email = $options['email'] ?? null;
+        if (!$email) {
+            return $query->where('1 != 1');
+        }
+
         return $query->where([
-            $this->_table->aliasField('email') => $options['email'],
+            $this->_table->aliasField('email') => $email,
         ]);
     }
 
