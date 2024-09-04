@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace CakeDC\Users\Model\Behavior;
 
 use Cake\Core\Configure;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventDispatcherTrait;
+use Cake\ORM\Query;
 use Cake\Utility\Hash;
 use CakeDC\Users\Exception\AccountNotActiveException;
 use CakeDC\Users\Exception\MissingEmailException;
@@ -276,11 +278,15 @@ class SocialBehavior extends BaseTokenBehavior
      * @param array $options Find options with email key.
      * @return \Cake\ORM\Query
      */
-    public function findExistingForSocialLogin(\Cake\ORM\Query $query, array $options)
+    public function findExistingForSocialLogin(Query $query, array $options)
     {
-        return $query->where([
-            $this->_table->aliasField('email') => $options['email'],
-        ]);
+        if (!array_key_exists('email', $options)) {
+            throw new MissingEmailException(__d('cake_d_c/users', 'Email not present'));
+        }
+
+        return $query->where(fn(QueryExpression $expression) => $expression
+            ->eq($this->_table->aliasField('email'), $options['email'])
+        );
     }
 
     /**
