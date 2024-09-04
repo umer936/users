@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace CakeDC\Users\Model\Behavior;
 
 use Cake\Core\Configure;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventDispatcherTrait;
+use Cake\ORM\Query\SelectQuery;
 use Cake\Utility\Hash;
 use CakeDC\Users\Exception\AccountNotActiveException;
 use CakeDC\Users\Exception\MissingEmailException;
@@ -138,7 +140,6 @@ class SocialBehavior extends BaseTokenBehavior
         $useEmail = $options['use_email'] ?? null;
         $validateEmail = (bool)($options['validate_email'] ?? null);
         $tokenExpiration = $options['token_expiration'] ?? null;
-        $existingUser = null;
         $email = $data['email'] ?? null;
         if ($useEmail && empty($email)) {
             throw new MissingEmailException(__d('cake_d_c/users', 'Email not present'));
@@ -276,19 +277,17 @@ class SocialBehavior extends BaseTokenBehavior
      * Prepare a query to retrieve existing entity for social login
      *
      * @param \Cake\ORM\Query\SelectQuery $query The base query.
-     * @param array $options Find options with email key.
+     * @param mixed $email Find options with email key.
      * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findExistingForSocialLogin(\Cake\ORM\Query\SelectQuery $query, array $options)
+    public function findExistingForSocialLogin(SelectQuery $query, mixed $email): SelectQuery
     {
-        $email = $options['email'] ?? null;
-        if (!$email) {
-            return $query->where('1 != 1');
-        }
-
-        return $query->where([
-            $this->_table->aliasField('email') => $email,
-        ]);
+        return $query->where(
+            fn(QueryExpression $expression) => $expression->eq(
+                $this->_table->aliasField('email'),
+                $email
+            )
+        );
     }
 
     /**
