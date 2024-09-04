@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CakeDC\Users\Model\Behavior;
 
 use Cake\Core\Configure;
-use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventDispatcherTrait;
 use Cake\ORM\Query\SelectQuery;
@@ -277,17 +276,18 @@ class SocialBehavior extends BaseTokenBehavior
      * Prepare a query to retrieve existing entity for social login
      *
      * @param \Cake\ORM\Query\SelectQuery $query The base query.
-     * @param mixed $email Find options with email key.
+     * @param string|null $email Find options with email key.
      * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findExistingForSocialLogin(SelectQuery $query, mixed $email): SelectQuery
+    public function findExistingForSocialLogin(SelectQuery $query, ?string $email = null): SelectQuery
     {
-        return $query->where(
-            fn(QueryExpression $expression) => $expression->eq(
-                $this->_table->aliasField('email'),
-                $email
-            )
-        );
+        if (!$email) {
+            return $query->where('1 != 1');
+        }
+
+        return $query->where([
+            $this->_table->aliasField('email') => $email,
+        ]);
     }
 
     /**
