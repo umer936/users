@@ -285,8 +285,7 @@ class SocialBehavior extends BaseTokenBehavior
         }
 
         return $query->where(fn(QueryExpression $expression) => $expression
-            ->eq($this->_table->aliasField('email'), $options['email'])
-        );
+            ->eq($this->_table->aliasField('email'), $options['email']));
     }
 
     /**
