@@ -281,7 +281,7 @@ class SocialBehavior extends BaseTokenBehavior
     public function findExistingForSocialLogin(Query $query, array $options)
     {
         if (!array_key_exists('email', $options)) {
-            throw new MissingEmailException(__d('cake_d_c/users', 'Email not present'));
+            throw new MissingEmailException(__d('cake_d_c/users', 'Missing `email` option in option array'));
         }
 
         return $query->where(fn(QueryExpression $expression) => $expression
