@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CakeDC\Users\Model\Behavior;
 
 use Cake\Core\Configure;
-use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventDispatcherTrait;
 use Cake\ORM\Query;
@@ -140,7 +139,6 @@ class SocialBehavior extends BaseTokenBehavior
         $useEmail = $options['use_email'] ?? null;
         $validateEmail = $options['validate_email'] ?? null;
         $tokenExpiration = $options['token_expiration'] ?? null;
-        $existingUser = null;
         $email = $data['email'] ?? null;
         if ($useEmail && empty($email)) {
             throw new MissingEmailException(__d('cake_d_c/users', 'Email not present'));
@@ -283,9 +281,13 @@ class SocialBehavior extends BaseTokenBehavior
         if (!array_key_exists('email', $options)) {
             throw new MissingEmailException(__d('cake_d_c/users', 'Missing `email` option in options array'));
         }
+        if (!$options['email']) {
+            return $query->where('1 != 1');
+        }
 
-        return $query->where(fn(QueryExpression $expression) => $expression
-            ->eq($this->_table->aliasField('email'), $options['email']));
+        return $query->where([
+            $this->_table->aliasField('email') => $options['email'],
+        ]);
     }
 
     /**
