@@ -136,7 +136,6 @@ class_alias('TestApp\Controller\AppController', 'App\Controller\AppController');
 ]);
 \Cake\Utility\Security::setSalt('yoyz186elmi66ab9pz4imbb3tgy9vnsgsfgwe2r8tyxbbfdygu9e09tlxyg8p7dq');
 
-Plugin::getCollection()->add(new \CakeDC\Users\Plugin());
 session_id('cli');
 
 \Cake\Core\Configure::write('Users.AllowedRedirectHosts', [
